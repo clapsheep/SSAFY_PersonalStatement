@@ -1,37 +1,5 @@
-document.addEventListener("DOMContentLoaded", (event) => {
-  const sections = document.querySelectorAll(".fade-in");
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("is-visible");
-        }
-      });
-    },
-    { threshold: 0.1 }
-  );
-
-  sections.forEach((section) => {
-    observer.observe(section);
-  });
-
-  // 플로팅 버튼 기능
-  const scrollToTopButton = document.getElementById("scrollToTop");
-
-  window.addEventListener("scroll", () => {
-    if (window.pageYOffset > 100) {
-      scrollToTopButton.style.display = "block";
-    } else {
-      scrollToTopButton.style.display = "none";
-    }
-  });
-
-  scrollToTopButton.addEventListener("click", () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  });
-});
-
 document.addEventListener("DOMContentLoaded", function () {
+  // 기술 스택 애니메이션
   const techs = document.querySelectorAll(".tech");
   let currentIndex = 0;
 
@@ -41,9 +9,27 @@ document.addEventListener("DOMContentLoaded", function () {
     techs[currentIndex].classList.add("active");
   }
 
-  // 초기 활성화
   techs[0].classList.add("active");
-
-  // 1초마다 다음 요소 활성화
   setInterval(activateNext, 1000);
+
+  // 텍스트 타이핑 애니메이션
+  const typingTexts = document.querySelectorAll("h2");
+
+  typingTexts.forEach((element) => {
+    const text = element.textContent;
+    element.textContent = "";
+    let i = 0;
+
+    function typeWriter() {
+      if (i < text.length) {
+        element.textContent += text.charAt(i);
+        i++;
+        setTimeout(typeWriter, 50);
+      }
+    }
+
+    setTimeout(() => {
+      typeWriter();
+    }, 1000); // 각 섹션이 나타난 후 타이핑 시작
+  });
 });
